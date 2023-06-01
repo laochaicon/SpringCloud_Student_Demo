@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+
+    <!--微服务名称获取-->
+    <property resource="bootstrap.yml"/>
+    <springProperty name="appName" scope="context" source="spring.application.name"/>
+
+    <!--控制台日志-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                <!-- 输出样式 -->
+                [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} : %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <!-- 日志文件info-->
+    <!--    <appender name="fileInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+    <!--            &lt;!&ndash; 过滤掉errorr日志，其他通过：onMatch=DENY禁止，onMismatch=ACCEPT通过 &ndash;&gt;-->
+    <!--            <level>ERROR</level>-->
+    <!--            <onMatch>DENY</onMatch>-->
+    <!--            <onMismatch>ACCEPT</onMismatch>-->
+    <!--        </filter>-->
+    <!--        <encoder>-->
+    <!--            <pattern>-->
+    <!--                [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} : %msg%n-->
+    <!--            </pattern>-->
+    <!--        </encoder>-->
+    <!--        &lt;!&ndash; 滚动策略，每天生成一个文件，TimeBasedRollingPolicy&ndash;&gt;-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            &lt;!&ndash; 文件路径 以时间和微服务名称做区分&ndash;&gt;-->
+    <!--            <fileNamePattern>D:/DJS/manager-module-logs/%d/${appName}/fileInfo.log</fileNamePattern>-->
+    <!--        </rollingPolicy>-->
+    <!--    </appender>-->
+    <!-- 日志文件error-->
+    <appender name="fileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- 只允许error日志通过  -->
+            <level>ALL</level>
+        </filter>
+        <encoder>
+            <pattern>
+                [%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} : %msg%n
+            </pattern>
+        </encoder>
+        <!-- 滚动策略 一天生成一个文件TimeBasedRollingPolicy-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件路径 以时间和微服务名称做区分-->
+            <fileNamePattern>E:/logs/${appName}/%d/log.log</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 全局日志拦截，级别info，只打印info级别以上的日志 -->
+    <root level="info">
+        <appender-ref ref="console" />
+        <!--        <appender-ref ref="fileInfo" />-->
+        <appender-ref ref="fileError" />
+    </root>
+</configuration>
