@@ -32,6 +32,15 @@ public class StudentController {
         return studentService.query(condition);
     }
 
-    
+    /**
+     * 获取指定学生信息，从param参数中传值
+     *
+     * @param id 学生ID
+     * @return 学生信息
+     */
+    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    public StudentDto getByParam(@RequestParam int id) throws QCPromptException {
+        return studentService.get(id);
+    }
 
 }

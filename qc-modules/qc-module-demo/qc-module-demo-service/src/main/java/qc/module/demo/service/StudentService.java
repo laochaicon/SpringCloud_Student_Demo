@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qc.common.core.exception.QCPromptException;
 import qc.module.demo.dto.student.StudentDto;
 import qc.module.demo.dto.student.StudentQueryConditionDto;
 import qc.module.demo.entity.Student;
@@ -63,7 +64,22 @@ public class StudentService {
 
         return null;
     }
+    /**
+     * 获取指定ID的学生
+     */
+    public StudentDto get(int studentNO) throws QCPromptException {
+        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Student::getNO, studentNO);
 
-    
+        Student student = repository.selectOne(wrapper);
+
+        if (student != null)
+            return StudentMapper.MAPPER.toDto(student);
+
+        throw new QCPromptException("指定的学生信息不存在");
+    }
+
+
+
 
 }
