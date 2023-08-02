@@ -141,6 +141,22 @@ public class StudentService {
         return QCUnifyReturnValue.Success();
     }
 
+    /**
+     * 删除学生
+     *
+     * @param studentNO 用户ID
+     * @return 成功返回null
+     */
+    public String delete(String studentNO) {
+        if (!hasIdExist(studentNO))
+            return QCUnifyReturnValue.Warn("删除的学生NO不存在");
+
+        repository.deleteById(studentNO);
+
+        return QCUnifyReturnValue.Success();
+    }
+
+
 
     /**
      * 判断指定的NO是否存在

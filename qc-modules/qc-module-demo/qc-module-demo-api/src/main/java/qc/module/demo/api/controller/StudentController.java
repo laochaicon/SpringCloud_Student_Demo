@@ -65,6 +65,17 @@ public class StudentController {
         return studentService.update(dto);
     }
 
+    /**
+     * 删除学生
+     *
+     * @param no 学生NO
+     * @return 成功返回null，失败返回错误信息
+     */
+    @RequestMapping(value = "/delete", method = {RequestMethod.DELETE})
+    public String delete(@RequestParam String no) {
+        return studentService.delete(no);
+    }
+
 
 
 }
