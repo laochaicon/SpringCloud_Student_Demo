@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qc.common.core.exception.QCPromptException;
+import qc.common.core.unify.QCUnifyReturnValue;
+import qc.module.demo.dto.student.StudentAddDto;
 import qc.module.demo.dto.student.StudentDto;
 import qc.module.demo.dto.student.StudentQueryConditionDto;
 import qc.module.demo.entity.Student;
@@ -77,6 +79,92 @@ public class StudentService {
             return StudentMapper.MAPPER.toDto(student);
 
         throw new QCPromptException("指定的学生信息不存在");
+    }
+
+    /**
+     * 新增学生
+     */
+    public String add(StudentAddDto dto) {
+        if (dto == null)
+            return QCUnifyReturnValue.Warn("对象不能为空");
+        if (StringUtils.isBlank(dto.getName()))
+            return QCUnifyReturnValue.Warn("学生名称不能为空");
+        //判断名称不能重复
+        if (isNameHasExist(dto.getName(), 0x0))
+            return QCUnifyReturnValue.Warn("学生名称已存在，名称不能相同");
+
+        //判断部门是否存在
+        if (!classService.hasIdExist(dto.getNo()))
+            return QCUnifyReturnValue.Warn("指定的班级信息不存在");
+
+        //DTO转换为Entity
+        Student en = StudentMapper.MAPPER.toEntity(dto);
+        //新增时需设置ID
+        en.setNO(genereateNo());
+
+        if (repository.insert(en) < 0x1)
+            return QCUnifyReturnValue.Warn("新增用户失败");
+
+        return QCUnifyReturnValue.Success();
+    }
+
+
+    /**
+     * 判断指定的NO是否存在
+     */
+    public boolean hasIdExist(String no) {
+        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Student::getNO, no);
+
+        Student en = repository.selectOne(wrapper);
+        if (en != null)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * @param name 名称
+     * @param no   ID，新增时设置ID为0，修改时设置ID为记录ID
+     * @return true表示名称已存在，false表示名称不存在
+     */
+    boolean isNameHasExist(String name, Integer no) {
+        //验证名称是否重复条件：name=name and id<>id
+        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Student::getNAME, name);
+        wrapper.ne(Student::getNO, no);
+
+        Student en = repository.selectOne(wrapper);
+        if (en != null)
+            return true;
+
+        return false;
+    }
+
+    /**
+     * 生成记录ID，获取数据库表中的最大记录ID+1
+     *
+     * @return 生成记录ID
+     */
+    String genereateNo() {
+        String maxRecordId = getMaxId();
+        return maxRecordId + 1;
+    }
+
+    /**
+     * 获取数据库表中的最大ID值，没有记录时返回0
+     *
+     * @return 返回数据库表中的最大ID值
+     */
+    String getMaxId() {
+        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
+        wrapper.select(Student::getNO);
+        wrapper.orderByDesc(Student::getNO);
+        Student en = repository.selectOne(wrapper);
+        if (en != null)
+            return en.getNO();
+
+        return "101";
     }
 
 

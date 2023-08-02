@@ -42,5 +42,17 @@ public class StudentController {
     public StudentDto getByParam(@RequestParam int id) throws QCPromptException {
         return studentService.get(id);
     }
+    
+    /**
+     * 新增学生
+     *
+     * @param dto 新增学生信息
+     * @return 成功返回null，失败返回错误信息
+     */
+    @RequestMapping(value = "/add", method = {RequestMethod.POST})
+    public String add(@RequestBody StudentAddDto dto) {
+        return studentService.add(dto);
+    }
+
 
 }
