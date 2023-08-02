@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>qc-gateway</module>
         <module>qc-common</module>
         <module>qc-modules</module>
     </modules>

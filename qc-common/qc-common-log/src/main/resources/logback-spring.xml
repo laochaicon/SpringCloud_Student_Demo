@@ -49,7 +49,7 @@
         <!-- 滚动策略 一天生成一个文件TimeBasedRollingPolicy-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 文件路径 以时间和微服务名称做区分-->
-            <fileNamePattern>E:/logs/${appName}/%d/log.log</fileNamePattern>
+            <fileNamePattern>D:/logs/${appName}/%d/log.log</fileNamePattern>
         </rollingPolicy>
     </appender>
 

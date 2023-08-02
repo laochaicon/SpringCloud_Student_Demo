@@ -8,18 +8,18 @@ server:
 spring:
   application:
     name: module-demo
-#  cloud:
-#    nacos:
-#      config:
-#        server-addr: 127.0.0.1:8848
-#        file-extension: yml
-#        username: nacos
-#        password: nacos
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.161.207:8848
+        file-extension: yml
+        username: nacos
+        password: nacos
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/qcdb-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&rewriteBatchedStatements=true&serverTimezone=Asia/Shanghai
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
