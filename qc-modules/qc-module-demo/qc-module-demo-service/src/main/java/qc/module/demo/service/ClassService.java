@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qc.module.demo.dto.classes.ClassesDto;
 import qc.module.demo.entity.Classes;
+import qc.module.demo.entity.Dept;
 import qc.module.demo.mapper.ClassMapper;
 import qc.module.demo.repository.ClassRepository;
 
@@ -33,8 +34,22 @@ public class ClassService {
             return ClassMapper.MAPPER.toDtoList(ens);
 
         return null;
-        
-        
     }
-    
+
+    /**
+     * 判断指定的ID是否存在
+     *
+     * @param no 
+     * @return true表示已存在，false表示不存在
+     */
+    public boolean hasIdExist(String no) {
+        LambdaQueryWrapper<Classes> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Classes::getNO, no);
+
+        Classes en = classRepository.selectOne(wrapper);
+        if (en != null)
+            return true;
+
+        return false;
+    }
 }

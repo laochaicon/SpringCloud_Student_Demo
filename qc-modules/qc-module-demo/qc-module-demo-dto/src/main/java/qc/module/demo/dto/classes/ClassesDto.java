@@ -8,5 +8,5 @@ public class ClassesDto {
     private String NO;
     
     //班级名称
-    private String Name;
+    private String NAME;
 }

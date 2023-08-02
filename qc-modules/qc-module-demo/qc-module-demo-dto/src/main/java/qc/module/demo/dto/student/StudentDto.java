@@ -16,18 +16,18 @@ public class StudentDto {
     private String SEX;
     
     //出生日期
-    private Date BIRTHDAY;
+    private String BIRTHDAY;
     
     //入学日期
-    private Date INSCHOOLDAY;
+    private String INSCHOOLDAY;
     
     //班级编号
-    private String CALSSCODE;
+    private String CLASSCODE;
     
     //手机号
     private String PHONE;
     
     //家庭住址
-    private String HOMEADDERSS;
+    private String HOMEADDRESS;
     
 }
