@@ -13,13 +13,16 @@ import java.util.List;
 @RequestMapping("/class")
 public class ClassController {
     private ClassService classService;
+    
     @Autowired
-    public void setClassService(ClassService classService){
-        this.classService=classService;
+    public void setClassService(ClassService classService) {
+        this.classService = classService;
     }
+
+    //查询所有班级
     @GetMapping("/all")
-    private List<ClassesDto> all(){
+    private List<ClassesDto> all() {
         return classService.all();
     }
-    
+
 }
