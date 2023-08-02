@@ -53,6 +53,18 @@ public class StudentController {
     public String add(@RequestBody StudentAddDto dto) {
         return studentService.add(dto);
     }
+    
+    /**
+     * 修改学生
+     *
+     * @param dto 学生信息
+     * @return 成功返回null，失败返回错误信息
+     */
+    @RequestMapping(value = "/update", method = {RequestMethod.PUT})
+    public String update(@RequestBody StudentDto dto) {
+        return studentService.update(dto);
+    }
+
 
 
 }

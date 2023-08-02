@@ -110,6 +110,39 @@ public class StudentService {
 
 
     /**
+     * 修改学生信息
+     *
+     * @param dto 学生信息
+     * @return 成功返回null
+     */
+    public String update(StudentDto dto) {
+        if (dto == null)
+            return QCUnifyReturnValue.Warn("对象不能为空");
+        if (dto.getNO() == null)
+            return QCUnifyReturnValue.Warn("学生NO不能为空");
+        if (StringUtils.isBlank(dto.getNAME()))
+            return QCUnifyReturnValue.Warn("学生姓名不能为空");
+
+        //DTO转换为Entity
+        Student en = StudentMapper.MAPPER.toEntity(dto);
+        //判断修改的学生信息是否存在
+        if (!hasIdExist(en.getNO()))
+            return QCUnifyReturnValue.Warn("修改的学生NO不存在");
+        //判断姓名不能重复
+        if (isNameHasExist(dto.getNAME(), Integer.valueOf(en.getNO())))
+            return QCUnifyReturnValue.Warn("学生姓名已存在，名称不能相同");
+
+        //判断班级是否存在
+        if (!classService.hasIdExist(dto.getNO()))
+            return QCUnifyReturnValue.Warn("指定的班级信息不存在");
+
+        repository.updateById(en);
+
+        return QCUnifyReturnValue.Success();
+    }
+
+
+    /**
      * 判断指定的NO是否存在
      */
     public boolean hasIdExist(String no) {
