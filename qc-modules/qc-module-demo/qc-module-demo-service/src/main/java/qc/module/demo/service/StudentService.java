@@ -122,10 +122,7 @@ public class StudentService {
         //判断修改的学生信息是否存在
         if (!hasIdExist(Integer.valueOf(en.getNO())))
             return QCUnifyReturnValue.Warn("修改的学生NO不存在");
-        //判断姓名不能重复
-        if (isNameHasExist(dto.getNAME(), Integer.valueOf(en.getNO())))
-            return QCUnifyReturnValue.Warn("学生姓名已存在，名称不能相同");
-        
+        repository.updateById(en);
 
         return QCUnifyReturnValue.Success();
     }
