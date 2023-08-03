@@ -49,7 +49,7 @@ public class StudentService {
                     q.like(Student::getNAME,
                             condition.getKeywords()).or().like(Student::getNO,
                             condition.getKeywords()).or().like(Student::getPHONE,
-                            condition.getKeywords()).or().like(Student::getHOMEADDERSS,
+                            condition.getKeywords()).or().like(Student::getHOMEADDRESS,
                             condition.getKeywords());
                 });
             }
@@ -84,26 +84,20 @@ public class StudentService {
     /**
      * 新增学生
      */
-    public String add(StudentAddDto dto) {
+    public String add(StudentDto dto) {
         if (dto == null)
             return QCUnifyReturnValue.Warn("对象不能为空");
-        if (StringUtils.isBlank(dto.getName()))
-            return QCUnifyReturnValue.Warn("学生名称不能为空");
+        if (StringUtils.isBlank(dto.getNAME()))
+            return QCUnifyReturnValue.Warn("学生姓名不能为空");
         //判断名称不能重复
-        if (isNameHasExist(dto.getName(), 0x0))
+        if (isNameHasExist(dto.getNAME(), Integer.valueOf(dto.getNO())))
             return QCUnifyReturnValue.Warn("学生名称已存在，名称不能相同");
-
-        //判断部门是否存在
-        if (!classService.hasIdExist(dto.getNo()))
-            return QCUnifyReturnValue.Warn("指定的班级信息不存在");
 
         //DTO转换为Entity
         Student en = StudentMapper.MAPPER.toEntity(dto);
-        //新增时需设置ID
-        en.setNO(genereateNo());
 
         if (repository.insert(en) < 0x1)
-            return QCUnifyReturnValue.Warn("新增用户失败");
+            return QCUnifyReturnValue.Warn("新增学生失败");
 
         return QCUnifyReturnValue.Success();
     }
@@ -126,17 +120,12 @@ public class StudentService {
         //DTO转换为Entity
         Student en = StudentMapper.MAPPER.toEntity(dto);
         //判断修改的学生信息是否存在
-        if (!hasIdExist(en.getNO()))
+        if (!hasIdExist(Integer.valueOf(en.getNO())))
             return QCUnifyReturnValue.Warn("修改的学生NO不存在");
         //判断姓名不能重复
         if (isNameHasExist(dto.getNAME(), Integer.valueOf(en.getNO())))
             return QCUnifyReturnValue.Warn("学生姓名已存在，名称不能相同");
-
-        //判断班级是否存在
-        if (!classService.hasIdExist(dto.getNO()))
-            return QCUnifyReturnValue.Warn("指定的班级信息不存在");
-
-        repository.updateById(en);
+        
 
         return QCUnifyReturnValue.Success();
     }
@@ -147,7 +136,7 @@ public class StudentService {
      * @param studentNO 用户ID
      * @return 成功返回null
      */
-    public String delete(String studentNO) {
+    public String delete(int studentNO) {
         if (!hasIdExist(studentNO))
             return QCUnifyReturnValue.Warn("删除的学生NO不存在");
 
@@ -161,9 +150,9 @@ public class StudentService {
     /**
      * 判断指定的NO是否存在
      */
-    public boolean hasIdExist(String no) {
+    public boolean hasIdExist(Integer NO) {
         LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Student::getNO, no);
+        wrapper.eq(Student::getNO, NO);
 
         Student en = repository.selectOne(wrapper);
         if (en != null)
@@ -186,37 +175,8 @@ public class StudentService {
         Student en = repository.selectOne(wrapper);
         if (en != null)
             return true;
-
         return false;
     }
-
-    /**
-     * 生成记录ID，获取数据库表中的最大记录ID+1
-     *
-     * @return 生成记录ID
-     */
-    String genereateNo() {
-        String maxRecordId = getMaxId();
-        return maxRecordId + 1;
-    }
-
-    /**
-     * 获取数据库表中的最大ID值，没有记录时返回0
-     *
-     * @return 返回数据库表中的最大ID值
-     */
-    String getMaxId() {
-        LambdaQueryWrapper<Student> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(Student::getNO);
-        wrapper.orderByDesc(Student::getNO);
-        Student en = repository.selectOne(wrapper);
-        if (en != null)
-            return en.getNO();
-
-        return "101";
-    }
-
-
 
 
 }

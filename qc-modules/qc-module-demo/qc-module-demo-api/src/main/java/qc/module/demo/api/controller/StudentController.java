@@ -9,6 +9,7 @@ import qc.module.demo.dto.student.StudentDto;
 import qc.module.demo.dto.student.StudentQueryConditionDto;
 import qc.module.demo.service.StudentService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api
@@ -50,7 +51,7 @@ public class StudentController {
      * @return 成功返回null，失败返回错误信息
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public String add(@RequestBody StudentAddDto dto) {
+    public String add(@RequestBody StudentDto dto) {
         return studentService.add(dto);
     }
     
@@ -72,9 +73,16 @@ public class StudentController {
      * @return 成功返回null，失败返回错误信息
      */
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE})
-    public String delete(@RequestParam String no) {
+    public String delete(@RequestParam int no) {
         return studentService.delete(no);
     }
+
+    /**
+     * 通过学生id 查询学生成绩
+     * @param id  学生学号
+     * @return
+     */
+    
 
 
 

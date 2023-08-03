@@ -23,7 +23,7 @@ public class Student implements Serializable,Cloneable{
     private String SEX ;
     
     /** 出生日期 */
-    private Date BIRSDAY ;
+    private Date BIRTHDAY ;
     
     /** 入学日期 */
     private Date INSCHOOLDAY ;
@@ -35,7 +35,7 @@ public class Student implements Serializable,Cloneable{
     private String PHONE ;
     
     /** 家庭住址 */
-    private String HOMEADDERSS ;
+    private String HOMEADDRESS ;
 
 
 }

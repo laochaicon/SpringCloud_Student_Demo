@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8088
   error:
     #返回异常信息
     include-message: always
@@ -8,13 +8,13 @@ server:
 spring:
   application:
     name: module-demo
-  cloud:
-    nacos:
-      config:
-        server-addr: 192.168.161.207:8848
-        file-extension: yml
-        username: nacos
-        password: nacos
+#  cloud:
+#    nacos:
+#      config:
+#        server-addr: 192.168.161.207:8848
+#        file-extension: yml
+#        username: nacos
+#        password: nacos
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
