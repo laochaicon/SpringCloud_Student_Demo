@@ -34,7 +34,6 @@ public class StudentController {
 
     /**
      * 获取指定学生信息，从param参数中传值
-     *
      * @param id 学生ID
      * @return 学生信息
      */
