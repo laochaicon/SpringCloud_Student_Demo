@@ -24,13 +24,12 @@ public class StudentController {
     
     /**
      * 根据条件查询学生
-     *
      * @param condition 查询条件
      * @return 学生集合
      */
     @RequestMapping(value = "/query", method = {RequestMethod.GET, RequestMethod.POST})
     public List<StudentDto> query(@RequestBody StudentQueryConditionDto condition) {
-        return studentService.query(condition);
+        return  studentService.query(condition);
     }
 
     /**
