@@ -13,10 +13,10 @@ import java.util.Date;
 public class Classes implements Serializable,Cloneable{
     /** 班级编号 */
     @TableId
-    private String NO ;
+    private String NO;
     
     /** 班级名称 */
-    private String NAME ;
+    private String NAME;
 
 
 }

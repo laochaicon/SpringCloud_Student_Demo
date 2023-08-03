@@ -22,7 +22,7 @@ public class ClassController {
     //查询所有班级
     @GetMapping("/all")
     private List<ClassesDto> all() {
-        return classService.all();
+        return classService.getAll();
     }
 
 }

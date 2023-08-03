@@ -21,7 +21,7 @@ public class ClassService {
     /**
      * 获取所有班级
      */
-    public List<ClassesDto> all(){
+    public List<ClassesDto> getAll(){
         LambdaQueryWrapper<Classes> wrapper = new LambdaQueryWrapper<>();
         
         //默认按班级NO排序
@@ -29,26 +29,15 @@ public class ClassService {
         //查询数据
         List<Classes> ens=classRepository.selectList(wrapper);
 
-        if (ens != null && ens.size() > 0x0)
+        if (ens != null && ens.size() > 0x0){
+            List<ClassesDto> ens1=ClassMapper.MAPPER.toDtoList(ens);
+            System.out.println(ens1);
             return ClassMapper.MAPPER.toDtoList(ens);
+        }
+           
 
         return null;
     }
 
-    /**
-     * 判断指定的ID是否存在
-     *
-     * @param NO 
-     * @return true表示已存在，false表示不存在
-     */
-    public boolean hasIdExist(Integer NO) {
-        LambdaQueryWrapper<Classes> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Classes::getNO, NO);
-
-        Classes en = classRepository.selectOne(wrapper);
-        if (en != null)
-            return true;
-
-        return false;
-    }
+    
 }

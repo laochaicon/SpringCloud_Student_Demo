@@ -11,7 +11,5 @@ import java.util.List;
 public interface ClassMapper {
     ClassMapper MAPPER= Mappers.getMapper(ClassMapper.class);
     
-    ClassesDto toDto(Classes en);
-    
     List<ClassesDto> toDtoList(List<Classes> ens);
 }
