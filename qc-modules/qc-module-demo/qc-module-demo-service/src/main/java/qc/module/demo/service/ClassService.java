@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qc.module.demo.dto.classes.ClassesDto;
 import qc.module.demo.entity.Classes;
-import qc.module.demo.entity.Dept;
 import qc.module.demo.mapper.ClassMapper;
 import qc.module.demo.repository.ClassRepository;
 
@@ -25,8 +24,8 @@ public class ClassService {
     public List<ClassesDto> all(){
         LambdaQueryWrapper<Classes> wrapper = new LambdaQueryWrapper<>();
         
-        //排序
-        wrapper.orderByAsc(Classes::getNAME);
+        //默认按班级NO排序
+        wrapper.orderByAsc(Classes::getNO);
         //查询数据
         List<Classes> ens=classRepository.selectList(wrapper);
 
@@ -39,12 +38,12 @@ public class ClassService {
     /**
      * 判断指定的ID是否存在
      *
-     * @param no 
+     * @param NO 
      * @return true表示已存在，false表示不存在
      */
-    public boolean hasIdExist(String no) {
+    public boolean hasIdExist(Integer NO) {
         LambdaQueryWrapper<Classes> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Classes::getNO, no);
+        wrapper.eq(Classes::getNO, NO);
 
         Classes en = classRepository.selectOne(wrapper);
         if (en != null)

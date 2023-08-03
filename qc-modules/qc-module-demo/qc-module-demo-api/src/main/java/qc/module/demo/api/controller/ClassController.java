@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/class")
 public class ClassController {
     private ClassService classService;
-    
+
     @Autowired
     public void setClassService(ClassService classService) {
         this.classService = classService;
