@@ -14,28 +14,28 @@ import java.util.Date;
 public class Student implements Serializable,Cloneable{
     /** 学号 */
     @TableId
-    private String NO ;
+    private String no;
     
     /** 姓名 */
-    private String NAME ;
+    private String name ;
     
     /** 性别 */
-    private String SEX ;
+    private String sex ;
     
     /** 出生日期 */
-    private Date BIRTHDAY ;
+    private Date birthday ;
     
     /** 入学日期 */
-    private Date INSCHOOLDAY ;
+    private Date inSchoolDay ;
     
     /** 班级编号 */
-    private String CLASSCODE ;
+    private String classCode ;
     
     /** 手机号 */
-    private String PHONE ;
+    private String phone ;
     
     /** 家庭住址 */
-    private String HOMEADDRESS ;
+    private String homeAddress ;
 
 
 }

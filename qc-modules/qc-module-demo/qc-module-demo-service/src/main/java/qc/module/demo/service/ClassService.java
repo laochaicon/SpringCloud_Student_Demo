@@ -30,14 +30,10 @@ public class ClassService {
         List<Classes> ens=classRepository.selectList(wrapper);
 
         if (ens != null && ens.size() > 0x0){
-            List<ClassesDto> ens1=ClassMapper.MAPPER.toDtoList(ens);
-            System.out.println(ens1);
+            //List<ClassesDto> ens1=ClassMapper.MAPPER.toDtoList(ens);
+            //System.out.println(ens1);
             return ClassMapper.MAPPER.toDtoList(ens);
         }
-           
-
         return null;
     }
-
-    
 }

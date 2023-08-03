@@ -9,10 +9,10 @@ import lombok.Data;
 @TableName("score")
 public class Score {
     /**学生学号*/;
-    private String  studentno;
+    private String  studentNo;
     /**课程编号*/
     @TableId
-    private String  courseno;
+    private String  courseNo;
     /**分数*/
     private String score ;
 

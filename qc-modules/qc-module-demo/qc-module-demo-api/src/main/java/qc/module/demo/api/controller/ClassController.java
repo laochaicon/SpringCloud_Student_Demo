@@ -21,7 +21,7 @@ public class ClassController {
 
     //查询所有班级
     @GetMapping("/all")
-    private List<ClassesDto> all() {
+    private List<ClassesDto> query() {
         return classService.getAll();
     }
 

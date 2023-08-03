@@ -4,14 +4,12 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import qc.common.core.exception.QCPromptException;
-import qc.module.demo.dto.student.StudentAddDto;
 import qc.module.demo.dto.student.StudentDto;
 import qc.module.demo.dto.student.StudentQueryConditionDto;
 import qc.module.demo.dto.student.StudentScoreDto;
 import qc.module.demo.service.ScoreService;
 import qc.module.demo.service.StudentService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Api

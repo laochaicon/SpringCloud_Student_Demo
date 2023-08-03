@@ -38,17 +38,16 @@ public class ScoreService {
     public List<StudentScoreDto> getScoreByStudentId(int studentNO) {
         LambdaQueryWrapper<Score> queryWrapper = Wrappers.<Score>lambdaQuery()
                 //学生NO查询
-                .eq(Score::getStudentno, studentNO)
+                .eq(Score::getStudentNo, studentNO)
                 // 按照课程id和成绩升序排列
-                .orderByAsc(Score::getCourseno, Score::getScore);
+                .orderByAsc(Score::getCourseNo, Score::getScore);
         //查询结果放入集合中
         List<Score> scoreList = scoreRepository.selectList(queryWrapper);
 
         //返回查询结果
         List<StudentScoreDto> result = new ArrayList<>();
         for (Score score : scoreList) {
-            Course course = courseRepository.selectById(score.getCourseno());
-
+            Course course = courseRepository.selectById(score.getCourseNo());
             StudentScoreDto scoreDto = new StudentScoreDto();
             scoreDto.setNo(course.getNo());
             scoreDto.setName(course.getName());

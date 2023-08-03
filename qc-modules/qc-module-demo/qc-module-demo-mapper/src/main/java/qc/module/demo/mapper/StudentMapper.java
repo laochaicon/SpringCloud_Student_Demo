@@ -12,12 +12,12 @@ import java.util.List;
 public interface StudentMapper {
     StudentMapper MAPPER= Mappers.getMapper(StudentMapper.class);
     //时间需要手动转换
-    @Mapping(target = "BIRTHDAY", source = "BIRTHDAY", dateFormat = "yyyy-MM-dd HH:mm:ss")
-    @Mapping(target = "INSCHOOLDAY", source = "INSCHOOLDAY", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(target = "birthday", source = "birthday", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(target = "inSchoolDay", source = "inSchoolDay", dateFormat = "yyyy-MM-dd HH:mm:ss")
     Student toEntity(StudentDto dto);
 
-    @Mapping(target = "BIRTHDAY", source = "BIRTHDAY", dateFormat = "yyyy-MM-dd HH:mm:ss")
-    @Mapping(target = "INSCHOOLDAY", source = "INSCHOOLDAY", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(target = "birthday", source = "birthday", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Mapping(target = "inSchoolDay", source = "inSchoolDay", dateFormat = "yyyy-MM-dd HH:mm:ss")
     StudentDto toDto(Student en);
     
     List<StudentDto> toDtoList(List<Student> list);
